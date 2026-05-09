@@ -1,0 +1,25 @@
+.card {
+    background-color: var(--card-color);
+    border-radius: 16px;
+    padding: 20px;
+}
+
+.nav-item {
+    display: block;
+    color: var(--secondary-text);
+    text-decoration: none;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    transition: 0.3s;
+}
+
+.nav-item:hover {
+    background-color: rgba(255,255,255,0.05);
+    color: var(--text-color);
+}
+
+.nav-item.active {
+    background-color: var(--primary-color);
+    color: white;
+}
