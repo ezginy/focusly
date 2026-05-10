@@ -11,12 +11,16 @@
     padding: 12px;
     border-radius: 10px;
     margin-bottom: 10px;
-    transition: 0.3s;
+    transition: 
+        background-color 0.3s,
+        color 0.3s,
+        transform 0.2s;
 }
 
 .nav-item:hover {
     background-color: rgba(255, 255, 255, 0.05);
     color: var(--text-color);
+    transform: translateX(4px);
 }
 
 .nav-item.active {
@@ -63,4 +67,52 @@
     .dashboard-grid .card p {
         font-size: 24px;
     }
+}
+
+/* SECTION HEADER */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+/* BUTTONS */
+.primary-btn {
+    border: none;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.primary-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+.primary-btn:active {
+    transform: scale(0.98);
+}
+
+/* ACCESSIBILITY */
+.primary-btn:focus, .nav-item:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+/* TIMER DISPLAY */
+.timer-display {
+    font-size: 64px;
+    font-weight: bold;
+    text-align: center;
+    padding: 30px 0;
+    letter-spacing: 2px;
+}
+
+/* TASK PLACEHOLDER */
+.task-placeholder {
+    color: var(--secondary-text);
+    padding: 20px 0;
 }
