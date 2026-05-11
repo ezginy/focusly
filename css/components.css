@@ -67,6 +67,10 @@
     .dashboard-grid .card p {
         font-size: 24px;
     }
+
+    .task-form {
+        flex-direction: column;
+    }
 }
 
 /* SECTION HEADER */
@@ -115,4 +119,34 @@
 .task-placeholder {
     color: var(--secondary-text);
     padding: 20px 0;
+}
+
+/* TASK FORM */
+.task-form {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+/* TASK INPUT */
+.task-input {
+    flex: 1;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-color);
+    padding: 14px 16px;
+    border-radius: 10px;
+    outline: none;
+}
+
+.task-input:focus {
+    border: 2px solid var(--primary-color);
+}
+
+/* TASK ITEM */
+.task-item {
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 16px;
+    border-radius: 10px;
+    margin-bottom: 12px;
 }
