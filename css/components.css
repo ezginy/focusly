@@ -251,3 +251,21 @@
         gap: 16px;
     }
 }
+
+/* NOTIFICATION */
+.notification {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    background-color: var(--card-color);
+    color: var(--text-color);
+    padding: 16px 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    font-size: 14px;
+    z-index: 1000;
+}
+
+.hidden {
+    display: none;
+}

@@ -11,6 +11,7 @@ const timerDisplay = document.querySelector(".timer-display");
 const timerButton = document.querySelector(".focus-section .primary-btn");
 const resetButton = document.querySelector(".reset-btn");
 const modeButtons = document.querySelectorAll(".mode-btn");
+const notification = document.querySelector(".notification");
 
 // TASK DATA
 let tasks = [];
@@ -68,6 +69,7 @@ function updateTimerDisplay() {
     const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
 
     timerDisplay.textContent = `${formattedMinutes}:${formattedSeconds}`;
+    document.title = `Focusly • ${formattedMinutes}:${formattedSeconds}`;
 }
 
 // SAVE TASKS TO LOCAL STORAGE
@@ -113,8 +115,11 @@ function startTimer() {
         if (timerDuration <= 0) {
 
             clearInterval(timerInterval);
-            timerInterval = null;
 
+            if (currentMode === "pomodoro") showNotification("Pomodoro session completed!");
+            else showNotification("Break session finished!");
+
+            timerInterval = null;
             isTimerRunning = false;
             timerButton.textContent = "Start Session";
 
@@ -165,7 +170,7 @@ function switchMode(mode) {
 
         modeButtons[1].classList.add("active-mode");
     }
-    
+
     else {
         timerDuration = 900;
 
@@ -173,6 +178,44 @@ function switchMode(mode) {
     }
 
     updateTimerDisplay();
+}
+
+// SHOW NOTIFICATION
+function showNotification(message) {
+
+    notification.textContent = message;
+    notification.classList.remove("hidden");
+
+    setTimeout(function() {
+        notification.classList.add("hidden");
+    }, 3000);
+
+}
+
+// PLAY NOTIFICATION SOUND
+function playNotificationSound() {
+
+    // create audio context
+    const audioContext = new AudioContext();
+
+    // create sound generator
+    const oscillator = audioContext.createOscillator();
+
+    // control sound volume
+    const gainNode = audioContext.createGain();
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+
+    // soft sound type
+    oscillator.type = "triangle";
+
+    // sound frequency
+    oscillator.frequency.value = 880;
+
+    // lower volume for subtle feedback
+    gainNode.gain.value = 0.03;
+    oscillator.start();
+    oscillator.stop(audioContext.currentTime + 0.15);
 }
 
 // FORM SUBMIT EVENT 
@@ -252,6 +295,7 @@ taskList.addEventListener("click", function(event) {
 
 // TIMER BUTTON EVENT
 timerButton.addEventListener("click", function() {
+    playNotificationSound();
     isTimerRunning ? pauseTimer() : startTimer();
 });
 
