@@ -8,10 +8,10 @@
 /* COLORS */
 :root {
     --bg-color: #0f172a;
-  --card-color: #1e293b;
-  --primary-color: #6366f1;
-  --text-color: #f8fafc;
-  --secondary-text: #94a3b8;
+    --card-color: #1e293b;
+    --primary-color: #6366f1;
+    --text-color: #f8fafc;
+    --secondary-text: #94a3b8;
 }
 
 .light-theme {
@@ -19,6 +19,23 @@
     --card-color: #ffffff;
     --text-color: #111827;
     --secondary-text: #6b7280;
+}
+
+/* DARK THEME BUTTON */
+.theme-btn {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.theme-btn:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+}
+
+/* LIGHT THEME BUTTON */
+.light-theme .theme-btn {
+    background-color: rgba(0, 0, 0, 0.06);
+}
+.light-theme .theme-btn:hover {
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 /* BODY */

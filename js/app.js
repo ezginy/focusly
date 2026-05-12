@@ -3,8 +3,13 @@ const taskForm = document.querySelector(".task-form");
 const taskInput = document.querySelector(".task-input");
 const taskList = document.querySelector(".task-list");
 
+// COUNTER ELEMENTS
 const completedCount = document.querySelector(".completed-count");
 const totalCount = document.querySelector(".total-count");
+const sessionCount = document.querySelector(".session-count");
+const progressFill = document.querySelector(".progress-fill");
+const sessionStatus = document.querySelector(".session-status");
+
 
 // TIMER ELEMENTS
 const timerDisplay = document.querySelector(".timer-display");
@@ -22,6 +27,7 @@ let timerDuration = 1500;
 let timerInterval = null;
 let isTimerRunning = false;
 let currentMode = "pomodoro";
+let completedSessions = 0;
 
 // UPDATE TASK COUNTERS
 function updateTaskCounters() {
@@ -73,6 +79,22 @@ function updateTimerDisplay() {
     document.title = `Focusly • ${formattedMinutes}:${formattedSeconds}`;
 }
 
+// UPDATE SESSION STATUS
+function updateSessionStatus() {
+
+    if (completedSessions === 0) sessionStatus.textContent = "No sessions completed yet...";
+    else if (completedSessions < 5) sessionStatus.textContent = "Good start today!";
+    else if (completedSessions < 10) sessionStatus.textContent = "Great productivity!!";
+    else sessionStatus.textContent = "Amazing focus streak!!!🔥";
+}
+
+// UPDATE PROGRESS BAR
+function updateProgressBar() {
+
+    const progressPercent = Math.min((completedSessions / 10) * 100, 100);
+    progressFill.style.width = `${progressPercent}%`; 
+}
+
 // SAVE THEME
 function saveTheme(theme) {
     localStorage.setItem("theme", theme);
@@ -80,13 +102,30 @@ function saveTheme(theme) {
 
 // LOAD THEME
 function loadTheme() {
-
     const savedTheme = localStorage.getItem("theme");
 
     if (savedTheme === "light") {
         document.body.classList.add("light-theme");
         themeButton.textContent = "🌙";
     } else themeButton.textContent = "☀️";
+}
+
+// SAVE SESSION DATA
+function saveSessions() {
+    localStorage.setItem("completedSessions", completedSessions);
+}
+
+// LOAD SESSION DATA
+function loadSessions() {
+    const savedSessions = localStorage.getItem("completedSessions");
+
+    if (!savedSessions) return;
+
+    completedSessions = Number(savedSessions);
+    sessionCount.textContent = completedSessions;
+    
+    updateProgressBar();
+    updateSessionStatus();
 }
 
 // SAVE TASKS TO LOCAL STORAGE
@@ -133,8 +172,18 @@ function startTimer() {
 
             clearInterval(timerInterval);
 
-            if (currentMode === "pomodoro") showNotification("Pomodoro session completed!");
-            else showNotification("Break session finished!");
+            if (currentMode === "pomodoro") {
+                showNotification("Pomodoro session completed!");
+                playNotificationSound();
+                
+                completedSessions++;
+                sessionCount.textContent = completedSessions;
+
+                saveSessions();
+                updateProgressBar();
+                updateSessionStatus();
+            
+            } else showNotification("Break session finished!");
 
             timerInterval = null;
             isTimerRunning = false;
@@ -312,7 +361,6 @@ taskList.addEventListener("click", function(event) {
 
 // TIMER BUTTON EVENT
 timerButton.addEventListener("click", function() {
-    playNotificationSound();
     isTimerRunning ? pauseTimer() : startTimer();
 });
 
@@ -351,5 +399,6 @@ themeButton.addEventListener("click", function() {
 
 });
 
+loadSessions();
 loadTasks();
 loadTheme();
