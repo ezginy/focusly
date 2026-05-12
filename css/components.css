@@ -135,6 +135,33 @@
     transform: scale(0.98);
 }
 
+/* TIMER MODES */
+.timer-modes {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.mode-btn {
+    border: none;
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--secondary-text);
+    padding: 10px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.mode-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+}
+
+.active-mode {
+    background-color: var(--primary-color);
+    color: white;
+}
+
 /* ACCESSIBILITY */
 .primary-btn:focus, .nav-item:focus {
     outline: 2px solid var(--primary-color);

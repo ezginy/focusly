@@ -10,14 +10,16 @@ const totalCount = document.querySelector(".total-count");
 const timerDisplay = document.querySelector(".timer-display");
 const timerButton = document.querySelector(".focus-section .primary-btn");
 const resetButton = document.querySelector(".reset-btn");
+const modeButtons = document.querySelectorAll(".mode-btn");
 
 // TASK DATA
 let tasks = [];
 
 //TIMER DATA
-let timerDuration = 10;
+let timerDuration = 1500;
 let timerInterval = null;
 let isTimerRunning = false;
+let currentMode = "pomodoro";
 
 // UPDATE TASK COUNTERS
 function updateTaskCounters() {
@@ -96,7 +98,7 @@ function startTimer() {
     if (timerInterval) return;
 
     if (timerDuration <= 0) {
-        timerDuration = 10;
+        timerDuration = 1500;
         updateTimerDisplay();
     }
 
@@ -134,9 +136,43 @@ function resetTimer() {
     clearInterval(timerInterval);
     timerInterval = null;
     isTimerRunning = false;
-    timerDuration = 10;
+    timerDuration = 1500;
     updateTimerDisplay();
     timerButton.textContent = "Start Session";
+}
+
+// SWITCH TIMER MODE 
+function switchMode(mode) {
+    currentMode = mode;
+
+    modeButtons.forEach(function(button) {
+        button.classList.remove("active-mode");
+    });
+
+    clearInterval(timerInterval);
+    timerInterval = null;
+    isTimerRunning = false;
+    timerButton.textContent = "Start Session";
+
+    if (mode === "pomodoro") {
+        timerDuration = 1500;
+        
+        modeButtons[0].classList.add("active-mode");
+    } 
+
+    else if (mode === "shortBreak") {
+        timerDuration = 300;
+
+        modeButtons[1].classList.add("active-mode");
+    }
+    
+    else {
+        timerDuration = 900;
+
+        modeButtons[2].classList.add("active-mode");
+    }
+
+    updateTimerDisplay();
 }
 
 // FORM SUBMIT EVENT 
@@ -221,6 +257,20 @@ timerButton.addEventListener("click", function() {
 
 resetButton.addEventListener("click", function() {
     resetTimer();
+});
+
+// TIMER MODE EVENTS
+modeButtons.forEach(function(button) {
+    
+    button.addEventListener("click", function() {
+        
+        const modeText = button.textContent.trim();
+
+        if (modeText === "Pomodoro") switchMode("pomodoro");
+        else if (modeText === "Short Break") switchMode("shortBreak");
+        else switchMode("longBreak");
+    });
+
 });
 
 loadTasks();
