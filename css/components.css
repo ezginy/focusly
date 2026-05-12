@@ -110,6 +110,31 @@
     transform: translateY(-1px);
 }
 
+/* TIMER BUTTONS */
+.timer-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.reset-btn {
+    border: none;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+    padding: 12px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.reset-btn:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+.reset-btn:active {
+    transform: scale(0.98);
+}
+
 /* ACCESSIBILITY */
 .primary-btn:focus, .nav-item:focus {
     outline: 2px solid var(--primary-color);

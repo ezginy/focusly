@@ -6,8 +6,18 @@ const taskList = document.querySelector(".task-list");
 const completedCount = document.querySelector(".completed-count");
 const totalCount = document.querySelector(".total-count");
 
+// TIMER ELEMENTS
+const timerDisplay = document.querySelector(".timer-display");
+const timerButton = document.querySelector(".focus-section .primary-btn");
+const resetButton = document.querySelector(".reset-btn");
+
 // TASK DATA
 let tasks = [];
+
+//TIMER DATA
+let timerDuration = 10;
+let timerInterval = null;
+let isTimerRunning = false;
 
 // UPDATE TASK COUNTERS
 function updateTaskCounters() {
@@ -46,6 +56,18 @@ function renderTask(task) {
     taskList.appendChild(taskItem);
 }
 
+// UPDATE TIMER DISPLAY
+function updateTimerDisplay() {
+
+    const minutes = Math.floor(timerDuration / 60);
+    const seconds = timerDuration % 60;
+
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+    const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
+
+    timerDisplay.textContent = `${formattedMinutes}:${formattedSeconds}`;
+}
+
 // SAVE TASKS TO LOCAL STORAGE
 function saveTasks() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -66,6 +88,55 @@ function loadTasks() {
     });
 
     updateTaskCounters();
+}
+
+// START TIMER
+function startTimer() {
+
+    if (timerInterval) return;
+
+    if (timerDuration <= 0) {
+        timerDuration = 10;
+        updateTimerDisplay();
+    }
+
+    isTimerRunning = true;
+    timerButton.textContent = "Pause";
+
+    timerInterval = setInterval(function() {
+
+        timerDuration--;
+        updateTimerDisplay();
+
+        if (timerDuration <= 0) {
+
+            clearInterval(timerInterval);
+            timerInterval = null;
+
+            isTimerRunning = false;
+            timerButton.textContent = "Start Session";
+
+        }
+
+    }, 1000);
+}
+
+// PAUSE TIMER
+function pauseTimer() {
+    clearInterval(timerInterval);
+    timerInterval = null;
+    isTimerRunning = false;
+    timerButton.textContent = "Resume";
+}
+
+// RESET TIMER
+function resetTimer() {
+    clearInterval(timerInterval);
+    timerInterval = null;
+    isTimerRunning = false;
+    timerDuration = 10;
+    updateTimerDisplay();
+    timerButton.textContent = "Start Session";
 }
 
 // FORM SUBMIT EVENT 
@@ -141,6 +212,15 @@ taskList.addEventListener("click", function(event) {
             event.target.textContent = "Complete";
         }
     }
+});
+
+// TIMER BUTTON EVENT
+timerButton.addEventListener("click", function() {
+    isTimerRunning ? pauseTimer() : startTimer();
+});
+
+resetButton.addEventListener("click", function() {
+    resetTimer();
 });
 
 loadTasks();
