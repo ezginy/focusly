@@ -1,6 +1,29 @@
 /* SIDEBAR */
+.logo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .logo h1 {
     font-size: 28px;
+}
+
+.theme-btn {
+    border: none;
+    background-color: rgba(255, 255, 255, 0.08);
+    color: var(--text-color);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+.theme-btn:hover {
+    transform: rotate(12deg) scale(1.05);
+    background-color: rgba(0, 0, 0, 0.12);
 }
 
 /* NAVIGATION */

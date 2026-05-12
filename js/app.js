@@ -12,6 +12,7 @@ const timerButton = document.querySelector(".focus-section .primary-btn");
 const resetButton = document.querySelector(".reset-btn");
 const modeButtons = document.querySelectorAll(".mode-btn");
 const notification = document.querySelector(".notification");
+const themeButton = document.querySelector(".theme-btn");
 
 // TASK DATA
 let tasks = [];
@@ -70,6 +71,22 @@ function updateTimerDisplay() {
 
     timerDisplay.textContent = `${formattedMinutes}:${formattedSeconds}`;
     document.title = `Focusly • ${formattedMinutes}:${formattedSeconds}`;
+}
+
+// SAVE THEME
+function saveTheme(theme) {
+    localStorage.setItem("theme", theme);
+}
+
+// LOAD THEME
+function loadTheme() {
+
+    const savedTheme = localStorage.getItem("theme");
+
+    if (savedTheme === "light") {
+        document.body.classList.add("light-theme");
+        themeButton.textContent = "🌙";
+    } else themeButton.textContent = "☀️";
 }
 
 // SAVE TASKS TO LOCAL STORAGE
@@ -317,4 +334,22 @@ modeButtons.forEach(function(button) {
 
 });
 
+// THEME TOGGLE EVENT
+themeButton.addEventListener("click", function() {
+
+    document.body.classList.toggle("light-theme");
+
+    if (document.body.classList.contains("light-theme")) {
+        themeButton.textContent = "🌙";
+        saveTheme("light");
+    }
+
+    else {
+        themeButton.textContent = "☀️";
+        saveTheme("dark");
+    }
+
+});
+
 loadTasks();
+loadTheme();
