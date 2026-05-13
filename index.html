@@ -25,12 +25,12 @@
                  <button class="theme-btn"> ☀️ </button>
             </div> 
 
+            <!-- NAVIGATION MENU -->
             <nav class="nav-menu">
-                <a href="#" class="nav-item active"> Dashboard </a>
-
-                <a href="#" class="nav-item"> Focus Timer </a>
-                <a href="#" class="nav-item"> Tasks </a>
-                <a href="#" class="nav-item"> Analytics </a>
+                <a href="#" class="nav-item active" data-section="dashboard"> Dashboard </a>
+                <a href="#" class="nav-item" data-section="timer"> Focus Timer </a>
+                <a href="#" class="nav-item" data-section="tasks"> Tasks </a>
+                <a href="#" class="nav-item" data-section="analytics"> Analytics </a>
             </nav>
 
         </aside>
@@ -44,83 +44,109 @@
                 <p> Track your productivity and stay focused. </p>
             </header>
 
-            <!-- PRODUCTIVITY STATS -->
-            <section class="dashboard-grid">
+            <!-- DASHBOARD PAGE -->
+            <section class="app-section dashboard-page">
+
+                <!-- DASHBOARD HERO -->
+                <section class="dashboard-hero card">
+
+                    <h2 class="hero-title"> Welcome Back 👋 </h2>
+                    <p class="hero-text"> Stay focused, build consistency, and make progress one session at a time. </p>
+                    
+                    <button class="hero-btn"> Start Your Focus Session </button>
                 
-                <div class="card">
-                    
-                    <h3> Today's Focus </h3>
-
-                    <div class="session-info">
-                        <p class="session-count"> 0 </p>
-                        <p class="session-status"> sessions completed today </p>
-                    </div>
-                    
-                    <div class="progress-bar">
-                        <div class="progress-fill"></div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <h3> Completed Tasks </h3>
-                    <p class="completed-count"> 0 </p>
-                </div>
-
-                <div class="card">
-                    <h3> Current Streak </h3>
-                    <p class="total-count"> 0 </p>
-                </div>
-
+                </section>
             </section>
 
-            <!-- TIMER SECTION -->
-            <section class="focus-section card"> 
-                
-                <div class="section-header">
-                    
-                    <h3> Focus Timer </h3>
+            <!-- ANALYTICS PAGE -->
+            <section class="app-section analytics-page hidden">
 
-                    <!-- TIMER BUTTONS -->
-                    <div class="timer-buttons">
-                        <button class="primary-btn" type="button"> Start Session </button>
-                        <button class="reset-btn" type="button"> Reset </button>
+                <!-- ANALYTICS GRID -->
+                <section class="analytics-grid">
+                
+                    <div class="card">
+                    
+                        <h3> Today's Focus </h3>
+
+                        <div class="session-info">
+                            <p class="session-count"> 0 </p>
+                            <p class="session-status"> sessions completed today </p>
+                        </div>
+                    
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3> Completed Tasks </h3>
+                        <p class="completed-count"> 0 </p>
+                    </div>
+
+                    <div class="card">
+                        <h3> Current Streak </h3>
+                        <p class="total-count"> 0 </p>
+                    </div>
+
+                </section>
+            </section>
+
+            <!-- TIMER PAGE -->
+            <section class="app-section timer-page hidden">
+
+                <!-- TIMER SECTION -->
+                <section class="focus-section card"> 
+                
+                    <div class="section-header">
+                    
+                        <h3> Focus Timer </h3>
+
+                        <!-- TIMER BUTTONS -->
+                        <div class="timer-buttons">
+                            <button class="primary-btn" type="button"> Start Session </button>
+                            <button class="reset-btn" type="button"> Reset </button>
+                        </div>
+                
+                    </div>
+
+                    <!-- TIMER MODES -->
+                    <div class="timer-modes">
+                        <button class="mode-btn active-mode"> Pomodoro </button>
+
+                        <button class="mode-btn"> Short Break </button>
+                        <button class="mode-btn"> Long Break </button>
                     </div>
                 
-                </div>
-
-                <!-- TIMER MODES -->
-                <div class="timer-modes">
-                    <button class="mode-btn active-mode"> Pomodoro </button>
-
-                    <button class="mode-btn"> Short Break </button>
-                    <button class="mode-btn"> Long Break </button>
-                </div>
-                
-                <div class="timer-display"> 25:00 </div>
+                    <div class="timer-display"> 25:00 </div>
             
+                </section>
+            </section>
+
+            <!-- TASKS PAGE -->
+            <section class="app-section tasks-page hidden">
+            
+                <!-- TASK SECTION -->
+                <section class="tasks-section card">
+
+                    <div class="section-header">
+                        <h3> Tasks </h3> 
+                    </div>
+
+                    <!-- TASK FORM -->
+                    <form class="task-form">
+                        <input type="text" class="task-input" placeholder="Add a new task...">
+
+                        <button class="primary-btn" type="submit"> Add Task </button>
+                    </form>
+
+                    <!-- TASK LIST -->
+                    <div class="task-list">
+                        <div class="task-placeholder"> No tasks added yet. </div>
+                    </div>
+
+                </section>
             </section>
             
-            <!-- TASK SECTION -->
-            <section class="tasks-section card">
-
-                <div class="section-header">
-                    <h3> Tasks </h3> 
-                </div>
-
-                <!-- TASK FORM -->
-                <form class="task-form">
-                    <input type="text" class="task-input" placeholder="Add a new task...">
-
-                    <button class="primary-btn" type="submit"> Add Task </button>
-                </form>
-
-                <!-- TASK LIST -->
-                <div class="task-list">
-                    <div class="task-placeholder"> No tasks added yet. </div>
-                </div>
-
-            </section>
-
         </main>
     </div>
 

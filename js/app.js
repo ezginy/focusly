@@ -1,3 +1,14 @@
+// HEADER ELEMENTS
+const headerTitle = document.querySelector(".top-header h2");
+const headerDescription = document.querySelector(".top-header p");
+
+// NAVIGATION ELEMENTS
+const navItems = document.querySelectorAll(".nav-item");
+const dashboardPage = document.querySelector(".dashboard-page");
+const timerPage = document.querySelector(".timer-page");
+const tasksPage = document.querySelector(".tasks-page");
+const analyticsPage = document.querySelector(".analytics-page");
+
 // TASK FORM ELEMENTS
 const taskForm = document.querySelector(".task-form");
 const taskInput = document.querySelector(".task-input");
@@ -10,7 +21,6 @@ const sessionCount = document.querySelector(".session-count");
 const progressFill = document.querySelector(".progress-fill");
 const sessionStatus = document.querySelector(".session-status");
 
-
 // TIMER ELEMENTS
 const timerDisplay = document.querySelector(".timer-display");
 const timerButton = document.querySelector(".focus-section .primary-btn");
@@ -18,6 +28,7 @@ const resetButton = document.querySelector(".reset-btn");
 const modeButtons = document.querySelectorAll(".mode-btn");
 const notification = document.querySelector(".notification");
 const themeButton = document.querySelector(".theme-btn");
+const heroButton = document.querySelector(".hero-btn");
 
 // TASK DATA
 let tasks = [];
@@ -95,6 +106,30 @@ function updateProgressBar() {
     progressFill.style.width = `${progressPercent}%`; 
 }
 
+// SHOW SELECTED PAGE
+function showPage(page) {
+    dashboardPage.classList.add("hidden");
+    timerPage.classList.add("hidden");
+    tasksPage.classList.add("hidden");
+    analyticsPage.classList.add("hidden");
+
+    page.classList.remove("hidden");
+
+    if (page === dashboardPage) {
+        headerTitle.textContent = "Dashboard";
+        headerDescription.textContent = "Track your productivity and stay focused.";
+    } else if (page === timerPage) {
+        headerTitle.textContent = "Focus Timer";
+        headerDescription.textContent = "Stay focused with Pomodoro sessions.";
+    } else if (page === tasksPage) {
+        headerTitle.textContent = "Tasks";
+        headerDescription.textContent = "Manage your daily tasks and goals.";
+    } else if (page === analyticsPage) {
+        headerTitle.textContent = "Analytics";
+        headerDescription.textContent = "Track your productivity progress.";
+    }
+}
+
 // SAVE THEME
 function saveTheme(theme) {
     localStorage.setItem("theme", theme);
@@ -123,7 +158,7 @@ function loadSessions() {
 
     completedSessions = Number(savedSessions);
     sessionCount.textContent = completedSessions;
-    
+
     updateProgressBar();
     updateSessionStatus();
 }
@@ -397,6 +432,38 @@ themeButton.addEventListener("click", function() {
         saveTheme("dark");
     }
 
+});
+
+// HERO BUTTON EVENT
+heroButton.addEventListener("click", function() {
+
+    showPage(timerPage);
+
+    navItems.forEach(function(nav) {
+        nav.classList.remove("active");
+    });
+    
+    navItems[1].classList.add("active");
+});
+
+// NAVIGATION EVENTS
+navItems.forEach(function(item) {
+    item.addEventListener("click", function(event) {
+        event.preventDefault();
+
+        navItems.forEach(function(nav) {
+            nav.classList.remove("active");
+        });
+
+        item.classList.add("active");
+
+        const targetSection = item.dataset.section;
+        
+        if (targetSection === "dashboard") showPage(dashboardPage);
+        else if (targetSection === "timer") showPage(timerPage);
+        else if (targetSection === "tasks") showPage(tasksPage);
+        else if (targetSection === "analytics") showPage(analyticsPage);
+    });
 });
 
 loadSessions();
