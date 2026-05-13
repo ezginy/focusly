@@ -1,6 +1,7 @@
 // HEADER ELEMENTS
 const headerTitle = document.querySelector(".top-header h2");
 const headerDescription = document.querySelector(".top-header p");
+const heroTitle = document.querySelector(".hero-title");
 
 // NAVIGATION ELEMENTS
 const navItems = document.querySelectorAll(".nav-item");
@@ -33,12 +34,21 @@ const heroButton = document.querySelector(".hero-btn");
 // TASK DATA
 let tasks = [];
 
-//TIMER DATA
+// TIMER DATA
 let timerDuration = 1500;
 let timerInterval = null;
 let isTimerRunning = false;
 let currentMode = "pomodoro";
 let completedSessions = 0;
+
+// UPDATE GREETING
+function updateGreeting() {
+    const currentHour = new Date().getHours();
+
+    if (currentHour < 12) heroTitle.textContent = "Good Morning 👋";
+    else if (currentHour < 18) heroTitle.textContent = "Good Afternoon 👋";
+    else heroTitle.textContent = "Good Evening 👋";
+}
 
 // UPDATE TASK COUNTERS
 function updateTaskCounters() {
@@ -87,7 +97,7 @@ function updateTimerDisplay() {
     const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
 
     timerDisplay.textContent = `${formattedMinutes}:${formattedSeconds}`;
-    document.title = `Focusly • ${formattedMinutes}:${formattedSeconds}`;
+    document.title = `Focusly • ${formattedMinutes}:${formattedSeconds} • Timer`;
 }
 
 // UPDATE SESSION STATUS
@@ -118,16 +128,25 @@ function showPage(page) {
     if (page === dashboardPage) {
         headerTitle.textContent = "Dashboard";
         headerDescription.textContent = "Track your productivity and stay focused.";
-    } else if (page === timerPage) {
+        document.title = "Focusly • Dashboard";
+    } 
+    else if (page === timerPage) {
         headerTitle.textContent = "Focus Timer";
         headerDescription.textContent = "Stay focused with Pomodoro sessions.";
-    } else if (page === tasksPage) {
+        updateTimerDisplay();
+    } 
+    else if (page === tasksPage) {
         headerTitle.textContent = "Tasks";
         headerDescription.textContent = "Manage your daily tasks and goals.";
-    } else if (page === analyticsPage) {
+        document.title = "Focusly • Tasks";
+    } 
+    else if (page === analyticsPage) {
         headerTitle.textContent = "Analytics";
         headerDescription.textContent = "Track your productivity progress.";
+        document.title = "Focusly • Analytics";
     }
+
+    window.scrollTo({top: 0, behavior: "smooth"});
 }
 
 // SAVE THEME
@@ -175,8 +194,6 @@ function loadTasks() {
     if (!storedTasks) return;
 
     tasks = JSON.parse(storedTasks);
-
-    console.log(tasks);
 
     tasks.forEach(function(task) {
         renderTask(task);
@@ -364,7 +381,10 @@ taskList.addEventListener("click", function(event) {
         if(taskList.children.length === 0) {
 
             taskList.innerHTML = `
-                <div class="task-placeholder"> No tasks added yet. </div>
+                <div class="task-placeholder"> 
+                    <p> No tasks added yet. </p>
+                    <span> Add your first task and start building momentum. </span>
+                </div>
             `;
         }
     }
@@ -442,7 +462,7 @@ heroButton.addEventListener("click", function() {
     navItems.forEach(function(nav) {
         nav.classList.remove("active");
     });
-    
+
     navItems[1].classList.add("active");
 });
 
@@ -469,3 +489,4 @@ navItems.forEach(function(item) {
 loadSessions();
 loadTasks();
 loadTheme();
+updateGreeting();

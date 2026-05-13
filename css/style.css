@@ -34,13 +34,19 @@
 .light-theme .theme-btn {
     background-color: rgba(0, 0, 0, 0.06);
 }
+
 .light-theme .theme-btn:hover {
     background-color: rgba(0, 0, 0, 0.1);
 }
 
+/* LIGHT THEME PROGRESS BAR */
+.light-theme .progress-bar {
+    background-color: rgba(0, 0, 0, 0.08);
+}
+
 /* BODY */
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Inter, Arial, sans-serif;
     background-color: var(--bg-color);
     color: var(--text-color);
     line-height: 1.5;

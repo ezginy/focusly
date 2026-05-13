@@ -22,7 +22,7 @@
                 <h1>Focusly</h1>
 
                 <!-- THEME TOGGLE -->
-                 <button class="theme-btn"> ☀️ </button>
+                 <button class="theme-btn" aria-label="Toggle theme"> ☀️ </button>
             </div> 
 
             <!-- NAVIGATION MENU -->
@@ -54,6 +54,23 @@
                     <p class="hero-text"> Stay focused, build consistency, and make progress one session at a time. </p>
                     
                     <button class="hero-btn"> Start Your Focus Session </button>
+                
+                </section>
+
+                <!-- DAILY QUOTE -->
+                <section class="quote-card card">
+
+                    <h3> Daily Focus </h3>
+                    <p class="quote-text"> "Small progress is still progress." </p>
+                
+                </section>
+
+                <!-- STREAK CARD -->
+                <section class="streak-card card">
+
+                    <h3> Current Streak 🔥 </h3>
+                    <p class="streak-number"> 0 Days </p>
+                    <p class="streak-text"> Stay consistent and keep your momentum going. </p>
                 
                 </section>
             </section>
@@ -134,19 +151,28 @@
 
                     <!-- TASK FORM -->
                     <form class="task-form">
-                        <input type="text" class="task-input" placeholder="Add a new task...">
+                        <input type="text" class="task-input" placeholder="Add a new task..." maxlength="50">
 
                         <button class="primary-btn" type="submit"> Add Task </button>
                     </form>
 
                     <!-- TASK LIST -->
                     <div class="task-list">
-                        <div class="task-placeholder"> No tasks added yet. </div>
+                        <div class="task-placeholder"> 
+
+                            <p> No tasks added yet. </p>
+                            <span> Add your first task and start building momentum. </span>
+                        
+                        </div>
                     </div>
 
                 </section>
             </section>
             
+            <!-- FOOTER -->
+            <footer class="app-footer">
+                <p> Designed and developed by Ezgi ✨ </p>
+            </footer>
         </main>
     </div>
 
